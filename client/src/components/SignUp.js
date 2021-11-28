@@ -4,18 +4,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-const loginStyle = {
-  display: { xs: 'none', md: 'block' },
+const buttonStyle = {
+  backgroundColor: '#0061A9',
+  color: 'white',
   margin: '5px',
-  border: '1px solid #2DA6FF',
-  color: '#2DA6FF',
-};
-
-const loginSignupStyle = {
-  display: { xs: 'block', md: 'none' },
-  margin: '5px',
-  border: '1px solid #2DA6FF',
-  color: '#2DA6FF',
 };
 
 const modalStyle = {
@@ -37,11 +29,8 @@ export default function Login() {
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={loginStyle}>
-        Login
-      </Button>
-      <Button onClick={handleOpen} sx={loginSignupStyle}>
-        Login / Signup
+      <Button onClick={handleOpen} sx={buttonStyle}>
+        Sign up
       </Button>
       <Modal
         open={open}
