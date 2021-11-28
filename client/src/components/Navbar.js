@@ -48,10 +48,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '45ch',
-    },
   },
 }));
 
@@ -155,6 +151,7 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder='Search…'
               inputProps={{ 'aria-label': 'search' }}
+              fullWidth
             />
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
