@@ -1,9 +1,16 @@
-function Home() {
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+
+import Trending from './Trending';
+
+export default function Home() {
   return (
-    <>
-      <h1>home</h1>
-    </>
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth='md'>
+        <Trending />
+      </Container>
+    </React.Fragment>
   );
 }
-
-export default Home;
