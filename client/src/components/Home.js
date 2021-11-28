@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth='md'>
+      <Container maxWidth='lg'>
         <Trending />
       </Container>
     </React.Fragment>

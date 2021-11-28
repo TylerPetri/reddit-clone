@@ -28,6 +28,7 @@ export default function Trending() {
           <Paper elevation={0} />
           <Paper />
           <Paper elevation={3} />
+          <Paper elevation={4} />
         </Box>
       </Box>
     </>
