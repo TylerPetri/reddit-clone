@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 import Trending from './Trending';
-import Popular from './Popular';
+import PopularPosts from './Popular Posts/Popular_Posts';
 
 export default function Home() {
   const flexColumnStyle = {
@@ -18,7 +18,7 @@ export default function Home() {
       <Container maxWidth='lg'>
         <Box sx={flexColumnStyle}>
           <Trending />
-          <Popular />
+          <PopularPosts />
         </Box>
       </Container>
     </React.Fragment>
