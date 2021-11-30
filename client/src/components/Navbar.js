@@ -11,9 +11,20 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
+import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 import Login from './Login';
 import SignUp from './SignUp';
+import { Divider } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -92,8 +103,61 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Typography variant='caption' pl={2} color='text.secondary'>
+        View options
+      </Typography>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <DarkModeOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Night Mode</ListItemText>
+      </MenuItem>
+      <Typography variant='caption' pl={2} color='text.secondary'>
+        More stuff
+      </Typography>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <MonetizationOnOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Coins</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <SecurityOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Premium</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <BoltOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Powerups</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <AdjustOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Talk</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <AutoFixHighOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Predictions</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <HelpOutlineOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Help Center</ListItemText>{' '}
+      </MenuItem>
+      <Divider />
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <ExitToAppOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Log In / Sign Up</ListItemText>{' '}
+      </MenuItem>
     </Menu>
   );
 
