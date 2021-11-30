@@ -4,11 +4,14 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AbcIcon from '@mui/icons-material/Abc';
 
 import Premium from './Premium';
@@ -47,14 +50,15 @@ export default function TopCommunities() {
   const titleBox = {
     position: 'relative',
     width: '100%',
-    height: '80px',
+    height: '70px',
     backgroundColor: 'brown',
   };
 
   const title = {
     position: 'absolute',
-    bottom: '8px',
-    left: '16px',
+    bottom: '3px',
+    left: '15px',
+    margin: 0,
   };
 
   const ViewAllButton = styled(Button)({
@@ -94,13 +98,30 @@ export default function TopCommunities() {
               Top Communities
             </Typography>
           </Box>
-          <List>
+          <List
+            sx={{
+              padding: 0,
+              '& .MuiListItemIcon-root': {
+                minWidth: 0,
+                marginRight: 1,
+              },
+              '& .MuiListItemAvatar-root': {
+                minWidth: 0,
+                marginRight: 1,
+              },
+            }}
+          >
             {topTemplate.map((item, idx) => (
               <>
                 <ListItem key={idx} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>{idx + 1}</ListItemIcon>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemIcon>
+                      <KeyboardArrowUpIcon sx={{ color: '#54D26B' }} />
+                    </ListItemIcon>
+                    <ListItemAvatar>
+                      <Avatar>{item.icon}</Avatar>
+                    </ListItemAvatar>
                     <ListItemText primary={item.community} />
                   </ListItemButton>
                 </ListItem>
