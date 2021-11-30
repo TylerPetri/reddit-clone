@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
@@ -12,6 +11,8 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 
 import AbcIcon from '@mui/icons-material/Abc';
+
+import Premium from './Premium';
 
 export default function TopCommunities() {
   const [topTemplate, setTopTemplate] = useState([
@@ -33,6 +34,7 @@ export default function TopCommunities() {
     width: '325px',
     display: 'flex',
     flexDirection: 'column',
+    gap: '20px',
   };
 
   const topCommunityCard = {
@@ -79,6 +81,11 @@ export default function TopCommunities() {
     borderRadius: '15px',
   });
 
+  const FillerBox = styled(Box)({
+    height: '20px',
+    border: '1px solid grey',
+  });
+
   return (
     <>
       <Box sx={cardBox} mt={3}>
@@ -109,6 +116,8 @@ export default function TopCommunities() {
             ))}
           </FooterBox>
         </Box>
+        <FillerBox />
+        <Premium />
       </Box>
     </>
   );

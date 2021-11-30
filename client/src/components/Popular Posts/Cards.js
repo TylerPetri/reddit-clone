@@ -19,18 +19,14 @@ export default function Popular() {
   const [voteCount, setVoteCount] = useState(140);
   const [commentCount, setCommentCount] = useState(750);
 
-  const cardBox = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#181A1B',
-    flexGrow: 1,
-  };
-
   const card = {
+    height: 'max-content',
     display: 'flex',
     width: '100%',
     flexGrow: 1,
+    backgroundColor: '#181A1B',
     border: '1px solid grey',
+    marginBottom: '15px',
   };
 
   const votes = {
@@ -64,59 +60,57 @@ export default function Popular() {
 
   return (
     <>
-      <Box sx={cardBox} mt={3}>
-        <Box sx={card}>
-          <Box sx={votes}>
-            <Checkbox
-              icon={<ArrowCircleUpIcon />}
-              checkedIcon={<ArrowCircleUpTwoToneIcon />}
-            />
-            <div>{voteCount}</div>
-            <Checkbox
-              icon={<ArrowCircleDownIcon />}
-              checkedIcon={<ArrowCircleDownTwoToneIcon />}
-            />
-          </Box>
-          <Box sx={content}>
-            <Typography
-              variant='caption'
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              r/AskReddit •Posted byu/Gaelic_Gladiator_64 22 hours ago Helpful10
-              Wholesome10 Silver12
-              <JoinButton>
-                <AddIcon />
-                Join
-              </JoinButton>
-            </Typography>
-            <Typography variant='h6' color='text.secondary' gutterBottom>
-              body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
-              consectetur, neque doloribus, cupiditate numquam dignissimos
-              laborum fugiat deleniti? Eum quasi quidem quibusdam.
-            </Typography>
-            <Typography variant='overline' gutterBottom>
-              <FooterButton>
-                <ChatBubbleOutlineOutlinedIcon />
-                {commentCount}
-              </FooterButton>
-              <FooterButton>
-                <ShareOutlinedIcon />
-                Share
-              </FooterButton>
-              <FooterButton>
-                <BookmarkBorderOutlinedIcon />
-                Save
-              </FooterButton>
-              <FooterButton>
-                <MoreHorizOutlinedIcon />
-              </FooterButton>
-            </Typography>
-          </Box>
+      <Box sx={card}>
+        <Box sx={votes}>
+          <Checkbox
+            icon={<ArrowCircleUpIcon />}
+            checkedIcon={<ArrowCircleUpTwoToneIcon />}
+          />
+          <div>{voteCount}</div>
+          <Checkbox
+            icon={<ArrowCircleDownIcon />}
+            checkedIcon={<ArrowCircleDownTwoToneIcon />}
+          />
+        </Box>
+        <Box sx={content}>
+          <Typography
+            variant='caption'
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            r/AskReddit •Posted byu/Gaelic_Gladiator_64 22 hours ago Helpful10
+            Wholesome10 Silver12
+            <JoinButton>
+              <AddIcon />
+              Join
+            </JoinButton>
+          </Typography>
+          <Typography variant='h6' color='text.secondary' gutterBottom>
+            body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore
+            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
+            fugiat deleniti? Eum quasi quidem quibusdam.
+          </Typography>
+          <Typography variant='overline' gutterBottom>
+            <FooterButton>
+              <ChatBubbleOutlineOutlinedIcon />
+              {commentCount}
+            </FooterButton>
+            <FooterButton>
+              <ShareOutlinedIcon />
+              Share
+            </FooterButton>
+            <FooterButton>
+              <BookmarkBorderOutlinedIcon />
+              Save
+            </FooterButton>
+            <FooterButton>
+              <MoreHorizOutlinedIcon />
+            </FooterButton>
+          </Typography>
         </Box>
       </Box>
     </>

@@ -1,5 +1,6 @@
-import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 
+import Box from '@mui/material/Box';
 import Cards from './Cards';
 import Sidebar from './Sidebar';
 
@@ -16,12 +17,21 @@ export default function Popular() {
     gap: '30px',
   };
 
+  const CardBox = styled(Box)({
+    height: 'max-content',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  });
+
   return (
     <>
       <Box sx={wrapper} mt={3}>
         <h5 style={{ margin: '0 10px' }}>Popular posts</h5>
         <Box sx={contentWrapper}>
-          <Cards />
+          <CardBox mt={3}>
+            <Cards />
+          </CardBox>
           <div style={{ width: '325px' }}>
             <Sidebar />
           </div>
