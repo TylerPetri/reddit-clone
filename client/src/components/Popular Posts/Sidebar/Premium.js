@@ -28,7 +28,7 @@ export default function Premium() {
     backgroundColor: '#FF5311',
     color: 'white',
     width: '100%',
-    margin: '5px 0',
+    marginTop: '5px',
   });
 
   return (

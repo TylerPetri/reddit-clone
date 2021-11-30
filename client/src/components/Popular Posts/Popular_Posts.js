@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
 import Cards from './Cards';
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar/Sidebar';
 
 export default function Popular() {
   const wrapper = {

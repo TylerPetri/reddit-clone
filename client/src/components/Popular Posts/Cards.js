@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
@@ -16,8 +15,8 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
 export default function Popular() {
-  const [voteCount, setVoteCount] = useState(140);
-  const [commentCount, setCommentCount] = useState(750);
+  const voteCount = 140;
+  const commentCount = 750;
 
   const card = {
     height: 'max-content',

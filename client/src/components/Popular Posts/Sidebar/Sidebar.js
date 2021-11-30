@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,22 +12,23 @@ import Button from '@mui/material/Button';
 import AbcIcon from '@mui/icons-material/Abc';
 
 import Premium from './Premium';
+import PopularCommunities from './Popular_Communities';
 
 export default function TopCommunities() {
-  const [topTemplate, setTopTemplate] = useState([
+  const topTemplate = [
     { icon: <AbcIcon />, community: 'r/nba' },
     { icon: <AbcIcon />, community: 'r/nba' },
     { icon: <AbcIcon />, community: 'r/nba' },
     { icon: <AbcIcon />, community: 'r/nba' },
     { icon: <AbcIcon />, community: 'r/nba' },
-  ]);
+  ];
 
-  const [footerTemplate, setFooterTemplate] = useState([
+  const footerTemplate = [
     { tag: 'Top' },
     { tag: 'Near You' },
     { tag: 'Aww' },
     { tag: 'News' },
-  ]);
+  ];
 
   const cardBox = {
     width: '325px',
@@ -118,6 +118,7 @@ export default function TopCommunities() {
         </Box>
         <FillerBox />
         <Premium />
+        <PopularCommunities />
       </Box>
     </>
   );
