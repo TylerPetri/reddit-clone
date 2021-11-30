@@ -75,15 +75,7 @@ export default function PopularCommunities() {
         </Typography>
         <AllCommunitiesBox sx={{ height: open ? 'max-content' : '65px' }}>
           {links.map((link, idx) => (
-            <Link
-              to={link}
-              key={idx}
-              style={{
-                color: 'white',
-                fontSize: '12px',
-                textDecoration: 'none',
-              }}
-            >
+            <Link to={link} key={idx} className='link'>
               {link}
             </Link>
           ))}

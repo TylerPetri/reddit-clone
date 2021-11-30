@@ -13,6 +13,7 @@ import AbcIcon from '@mui/icons-material/Abc';
 
 import Premium from './Premium';
 import PopularCommunities from './Popular_Communities';
+import Footer from './Footer';
 
 export default function TopCommunities() {
   const topTemplate = [
@@ -41,7 +42,6 @@ export default function TopCommunities() {
     display: 'flex',
     flexDirection: 'column',
     border: '1px solid grey',
-    borderRadius: '7px 7px 0 0',
   };
 
   const titleBox = {
@@ -49,7 +49,6 @@ export default function TopCommunities() {
     width: '100%',
     height: '80px',
     backgroundColor: 'brown',
-    borderRadius: '7px 7px 0 0',
   };
 
   const title = {
@@ -82,7 +81,7 @@ export default function TopCommunities() {
   });
 
   const FillerBox = styled(Box)({
-    height: '20px',
+    minHeight: '20px',
     border: '1px solid grey',
   });
 
@@ -116,9 +115,29 @@ export default function TopCommunities() {
             ))}
           </FooterBox>
         </Box>
-        <FillerBox />
+        <FillerBox>
+          <Typography
+            variant='caption'
+            color='text.secondary'
+            pl={1}
+            gutterBottom
+          >
+            ADVERTISEMENT
+          </Typography>
+        </FillerBox>
         <Premium />
         <PopularCommunities />
+        <FillerBox>
+          <Typography
+            variant='caption'
+            color='text.secondary'
+            pl={1}
+            gutterBottom
+          >
+            ADVERTISEMENT
+          </Typography>
+        </FillerBox>
+        <Footer />
       </Box>
     </>
   );

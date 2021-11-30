@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.link {
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.footer-links {
+  color: rgb(214, 214, 214);
+  font-size: 12px;
+  text-decoration: none;
+  text-align: start;
+}
