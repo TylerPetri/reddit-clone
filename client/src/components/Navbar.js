@@ -178,21 +178,61 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='inherit'
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+      <Typography variant='caption' pl={2} color='text.secondary'>
+        View options
+      </Typography>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <DarkModeOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Night Mode</ListItemText>
       </MenuItem>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Login />
-      </div>
+      <Typography variant='caption' pl={2} color='text.secondary'>
+        More stuff
+      </Typography>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <MonetizationOnOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Coins</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <SecurityOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Premium</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <BoltOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Powerups</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <AdjustOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Talk</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <AutoFixHighOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Predictions</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <HelpOutlineOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Help Center</ListItemText>{' '}
+      </MenuItem>
+      <Divider />
+      <MenuItem onClick={handleMenuClose}>
+        <ListItemIcon>
+          <ExitToAppOutlinedIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Log In / Sign Up</ListItemText>{' '}
+      </MenuItem>
     </Menu>
   );
 
