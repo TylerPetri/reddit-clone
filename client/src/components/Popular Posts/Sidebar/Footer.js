@@ -54,7 +54,7 @@ export default function Footer() {
     <FooterBox>
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Item sx={listStyle}>
+          <Item sx={listStyle} elevation={0}>
             {links1.map((link) => (
               <Link key={link} to={link} className='footer-links'>
                 {link}
@@ -63,7 +63,7 @@ export default function Footer() {
           </Item>
         </Grid>
         <Grid item xs={6}>
-          <Item sx={listStyle}>
+          <Item sx={listStyle} elevation={0}>
             {links2.map((link) => (
               <Link key={link} to={link} className='footer-links'>
                 {link}
