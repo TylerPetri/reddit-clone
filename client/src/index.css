@@ -13,6 +13,22 @@ code {
     monospace;
 }
 
+html::-webkit-scrollbar {
+  width: 14px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #272727;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #3f3f3f;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4d4d4d;
+}
+
 .link {
   color: white;
   font-size: 12px;
