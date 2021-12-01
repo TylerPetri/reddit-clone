@@ -116,7 +116,7 @@ export default function Login() {
             </ModalHeaderBox>
             <ContinueBox>
               <div>
-                <Checkbox sx={{ pl: 0 }} />
+                <Checkbox sx={{ p: 0, mr: 1 }} />
                 <Typography variant='caption' color='text.secondary'>
                   I agree to get emails about cool stuff on Reddit
                 </Typography>
