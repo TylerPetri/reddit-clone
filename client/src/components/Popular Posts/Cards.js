@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -13,6 +15,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import BlurOnIcon from '@mui/icons-material/BlurOn';
 
 export default function Popular() {
   const voteCount = 140;
@@ -44,6 +47,11 @@ export default function Popular() {
     padding: '5px',
   };
 
+  const headerBox = {
+    display: 'flex',
+    alignItems: 'center',
+  };
+
   const FooterButton = styled(Button)({
     color: '#9E9589',
     gap: '5px',
@@ -55,6 +63,7 @@ export default function Popular() {
     margin: '5px',
     paddingRight: '15px',
     height: '30px',
+    // justifySelf: 'end',
   });
 
   return (
@@ -72,21 +81,39 @@ export default function Popular() {
           />
         </Box>
         <Box sx={content}>
-          <Typography
-            variant='caption'
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            r/AskReddit •Posted byu/Gaelic_Gladiator_64 22 hours ago Helpful10
-            Wholesome10 Silver12
+          <Box sx={headerBox}>
+            <Avatar
+              sx={{
+                height: '20px',
+                width: '20px',
+                color: '#272727',
+                background: '#FF4500',
+                marginRight: '10px',
+              }}
+            >
+              <BlurOnIcon />
+            </Avatar>
+            <Typography
+              variant='caption'
+              sx={{
+                height: 'max-content',
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                color: '#808080',
+                gap: '3px',
+                flexGrow: 1,
+              }}
+            >
+              <Link className='white-link'>r/AskReddit</Link> • Posted by
+              <Link className='grey-link'>u/Gaelic_Gladiator_64</Link> 22 hours
+              ago
+            </Typography>
             <JoinButton>
               <AddIcon />
               Join
             </JoinButton>
-          </Typography>
+          </Box>
           <Typography variant='h6' color='text.secondary' gutterBottom>
             body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore

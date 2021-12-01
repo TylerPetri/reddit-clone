@@ -35,8 +35,20 @@ html::-webkit-scrollbar-thumb {
   text-decoration: none;
 }
 
-.link:hover {
+.link:hover,
+.white-link:hover,
+.grey-link:hover {
   text-decoration: underline;
+}
+
+.white-link {
+  color: white;
+  text-decoration: none;
+}
+
+.grey-link {
+  color: #808080;
+  text-decoration: none;
 }
 
 .footer-links {
