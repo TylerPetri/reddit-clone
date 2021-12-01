@@ -53,10 +53,10 @@ const options = [
   'United States',
 ];
 
-export default function HotFiler() {
+export default function HotFilter() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl2, setAnchorEl2] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
 
@@ -157,7 +157,6 @@ export default function HotFiler() {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              disabled={index === 0}
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
             >
