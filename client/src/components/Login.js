@@ -111,7 +111,7 @@ export default function Login() {
                 color: '#808080',
               }}
             >
-              <div className='close-button'>
+              <div className='close-button' onClick={handleClose}>
                 <CloseIcon />
               </div>
             </Box>
