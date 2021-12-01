@@ -65,6 +65,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openSignup, setOpenSignup] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -243,8 +245,16 @@ export default function PrimarySearchAppBar() {
             />
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Login />
-            <SignUp />
+            <Login
+              openLogin={openLogin}
+              setOpenLogin={setOpenLogin}
+              setOpenSignup={setOpenSignup}
+            />
+            <SignUp
+              setOpenLogin={setOpenLogin}
+              openSignup={openSignup}
+              setOpenSignup={setOpenSignup}
+            />
             <IconButton
               size='large'
               edge='end'

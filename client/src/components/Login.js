@@ -87,10 +87,15 @@ const LoginButton = styled(Button)({
   background: '#007BD7',
 });
 
-export default function Login() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function Login(props) {
+  const handleOpen = () => setOpenLogin(true);
+  const handleClose = () => setOpenLogin(false);
+  const handleRedirect = () => {
+    setOpenSignup(true);
+    setOpenLogin(false);
+  };
+
+  const { openLogin, setOpenLogin, setOpenSignup } = props;
 
   return (
     <div>
@@ -100,7 +105,7 @@ export default function Login() {
       <Button onClick={handleOpen} sx={loginSignupStyle}>
         Login / Signup
       </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={openLogin} onClose={handleClose}>
         <Box sx={modalStyle}>
           <Img />
           <ContentBox>
@@ -168,7 +173,7 @@ export default function Login() {
                 Forgot your username of password?
               </Typography>
               <Typography variant='caption' color='text.secondary' mt={2}>
-                New to reddit? <Button>SIGN UP</Button>
+                New to reddit? <Button onClick={handleRedirect}>SIGN UP</Button>
               </Typography>
             </Box>
           </ContentBox>

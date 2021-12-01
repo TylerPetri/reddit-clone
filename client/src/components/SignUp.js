@@ -81,17 +81,22 @@ const LoginButton = styled(Button)({
   background: '#007BD7',
 });
 
-export default function Login() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function Signup(props) {
+  const handleOpen = () => setOpenSignup(true);
+  const handleClose = () => setOpenSignup(false);
+  const handleRedirect = () => {
+    setOpenSignup(false);
+    setOpenLogin(true);
+  };
+
+  const { openSignup, setOpenLogin, setOpenSignup } = props;
 
   return (
     <div>
       <Button onClick={handleOpen} sx={buttonStyle}>
         Sign up
       </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={openSignup} onClose={handleClose}>
         <Box sx={modalStyle}>
           <Img />
           <ContentBox>
@@ -153,10 +158,13 @@ export default function Login() {
                 label='Email'
                 variant='outlined'
               />
-              <LoginButton fullWidth>CONTINUE</LoginButton>
+              <LoginButton fullWidth sx={{ mt: 1 }}>
+                CONTINUE
+              </LoginButton>
 
               <Typography variant='caption' color='text.secondary' mt={1}>
-                Already a redditor? <Button>LOG IN</Button>
+                Already a redditor?{' '}
+                <Button onClick={handleRedirect}>LOG IN</Button>
               </Typography>
             </Box>
           </ContentBox>
