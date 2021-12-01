@@ -63,7 +63,6 @@ export default function Popular() {
     margin: '5px',
     paddingRight: '15px',
     height: '30px',
-    // justifySelf: 'end',
   });
 
   return (
@@ -105,9 +104,14 @@ export default function Popular() {
                 flexGrow: 1,
               }}
             >
-              <Link className='white-link'>r/AskReddit</Link> • Posted by
-              <Link className='grey-link'>u/Gaelic_Gladiator_64</Link> 22 hours
-              ago
+              <Link className='white-link' to='/r/AskReddit'>
+                r/AskReddit
+              </Link>{' '}
+              • Posted by
+              <Link className='grey-link' to='/u/Gaelic_Gladiator_64'>
+                u/Gaelic_Gladiator_64
+              </Link>{' '}
+              22 hours ago
             </Typography>
             <JoinButton>
               <AddIcon />

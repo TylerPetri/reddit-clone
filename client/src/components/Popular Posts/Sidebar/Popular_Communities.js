@@ -86,8 +86,8 @@ export default function PopularCommunities() {
         <List>
           {popularList.map((item, idx) => (
             <>
-              <Divider />
-              <ListItem key={idx} disablePadding>
+              <Divider key={idx} />
+              <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemText primary={item} />
                 </ListItemButton>

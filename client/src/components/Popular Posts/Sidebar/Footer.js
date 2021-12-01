@@ -56,7 +56,7 @@ export default function Footer() {
         <Grid item xs={6}>
           <Item sx={listStyle}>
             {links1.map((link) => (
-              <Link key={link} className='footer-links'>
+              <Link key={link} to={link} className='footer-links'>
                 {link}
               </Link>
             ))}
@@ -65,7 +65,7 @@ export default function Footer() {
         <Grid item xs={6}>
           <Item sx={listStyle}>
             {links2.map((link) => (
-              <Link key={link} className='footer-links'>
+              <Link key={link} to={link} className='footer-links'>
                 {link}
               </Link>
             ))}
