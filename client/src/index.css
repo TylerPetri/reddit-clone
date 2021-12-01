@@ -57,3 +57,7 @@ html::-webkit-scrollbar-thumb {
   text-decoration: none;
   text-align: start;
 }
+
+.close-button:hover {
+  cursor: pointer;
+}
