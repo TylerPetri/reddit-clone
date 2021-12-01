@@ -25,6 +25,7 @@ const modalStyle = {
   transform: 'translate(-50%, -50%)',
   height: '70%',
   width: '85%',
+  maxWidth: '800px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
