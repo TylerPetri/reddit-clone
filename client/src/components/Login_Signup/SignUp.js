@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -98,7 +99,7 @@ const suggestionStyle = {
   width: '270px',
 };
 
-export default function Signup(props) {
+function Signup(props) {
   const [enteredEmail, setEnteredEmail] = React.useState(false);
   const [email, setEmail] = React.useState();
   const [username, setUsername] = React.useState();
@@ -111,7 +112,11 @@ export default function Signup(props) {
     'Thick_Sea8733',
   ];
 
-  const { openSignup, setOpenLogin, setOpenSignup } = props;
+  const { user, openSignup, setOpenLogin, setOpenSignup, register } = props;
+
+  React.useEffect(() => {
+    setOpenSignup(false);
+  }, [user, setOpenSignup]);
 
   const handleOpen = () => setOpenSignup(true);
   const handleClose = () => setOpenSignup(false);
@@ -367,3 +372,19 @@ export default function Signup(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (credentials) => {
+      dispatch(register(credentials));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
