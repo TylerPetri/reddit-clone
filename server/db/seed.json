@@ -1,17 +1,17 @@
 [
   {
-    "User": "Epitascoliartheri",
-    "Password": 123456,
+    "username": "Epitascoliartheri",
+    "password": "123456",
     "createdAt": 6546546198
   },
   {
-    "User": "Steph Curry",
-    "Password": 123456,
+    "username": "Steph Curry",
+    "password": "123456",
     "createdAt": 453785353
   },
   {
-    "User": "Joyce Meyer",
-    "Password": 123456,
+    "username": "Joyce Meyer",
+    "password": "123456",
     "createdAt": 4523727853
   }
 ]

@@ -14,8 +14,8 @@ allUsers.forEach((user) => {
     Item: {
       id: uuidv4(),
       createdAt: user.createdAt,
-      Users: user.User,
-      Password: user.Password,
+      username: user.username,
+      password: user.password,
     },
   };
   dynamodb.put(params, (err, data) => {
@@ -27,7 +27,7 @@ allUsers.forEach((user) => {
         JSON.stringify(err, null, 2)
       );
     } else {
-      console.log('PutItem succeeded:', user.User);
+      console.log('PutItem succeeded:', user.username);
     }
   });
 });

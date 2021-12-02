@@ -8,11 +8,11 @@ const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 const params = {
   TableName: 'Reddit-Clone-Users',
   KeySchema: [
-    { AttributeName: 'id', KeyType: 'HASH' },
-    { AttributeName: 'createdAt', KeyType: 'RANGE' },
+    { AttributeName: 'username', KeyType: 'HASH' }, // Partition key
+    { AttributeName: 'createdAt', KeyType: 'RANGE' }, // Sort key
   ],
   AttributeDefinitions: [
-    { AttributeName: 'id', AttributeType: 'S' },
+    { AttributeName: 'username', AttributeType: 'S' },
     { AttributeName: 'createdAt', AttributeType: 'N' },
   ],
   ProvisionedThroughput: {

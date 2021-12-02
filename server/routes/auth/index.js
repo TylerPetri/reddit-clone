@@ -6,7 +6,7 @@ const awsConfig = {
 };
 AWS.config.update(awsConfig);
 const dynamodb = new AWS.DynamoDB.DocumentClient();
-const table = 'Reddit-Clone-Users';
+const TABLE_NAME = 'Reddit-Clone-Users';
 
 router.get('/users', (req, res) => {
   const params = {
@@ -73,28 +73,64 @@ router.post('/login', async (req, res, next) => {
   try {
     // expects username and password in req.body
     const { username, password } = req.body;
-    if (!username || !password)
-      return res.status(400).json({ error: 'Username and password required' });
+    // if (!username || !password)
+    //   return res.status(400).json({ error: 'Username and password required' });
 
     // const user = await User.findOne({
     //   username: req.body.username,
     // });
 
-    if (!user) {
-      console.log({ error: `No user found for username: ${username}` });
-      res.status(401).json({ error: 'Wrong username and/or password' });
-    } else if (user && user.password !== password) {
-      console.log({ error: 'Wrong username and/or password' });
-      res.status(401).json({ error: 'Wrong username and/or password' });
-    } else {
-      const token = jwt.sign({ id: user._id }, process.env.SESSION_SECRET, {
-        expiresIn: 86400,
-      });
-      res.json({
-        ...user.$__,
-        token,
-      });
-    }
+    dynamodb.query(
+      {
+        TableName: TABLE_NAME,
+        ProjectionExpression: '#un, #id, #pwd',
+        KeyConditionExpression: '#un = :user',
+        ExpressionAttributeNames: {
+          '#un': 'username',
+          '#id': 'id',
+          '#pwd': 'password',
+        },
+        ExpressionAttributeValues: {
+          ':user': username,
+        },
+        ScanIndexForward: false,
+      },
+      (err, data) => {
+        if (err) {
+          console.error(
+            'Unable to query. Error:',
+            JSON.stringify(err, null, 2)
+          );
+          res.status(500).json(err);
+        } else {
+          console.log('Query succeeded.');
+          if (data.Items.length < 1) {
+            console.log({ error: `No user found for username: ${username}` });
+            res.status(401).json({ error: 'Wrong username and/or password' });
+          } else if (
+            data.Items.length > 0 &&
+            data.Items[0].password !== password
+          ) {
+            console.log({ error: 'Wrong username and/or password' });
+            res.status(401).json({ error: 'Wrong username and/or password' });
+          } else {
+            const token = jwt.sign(
+              { id: data.Items[0].id },
+              process.env.SESSION_SECRET,
+              {
+                expiresIn: 86400,
+              }
+            );
+            const user = data.Items[0];
+            delete user.password;
+            res.json({
+              user,
+              token,
+            });
+          }
+        }
+      }
+    );
   } catch (error) {
     next(error);
   }
