@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -25,6 +26,8 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Login from './Login_Signup/Login';
 import SignUp from './Login_Signup/SignUp';
 import { Divider } from '@mui/material';
+
+import { logout } from '../store/utils/thunkCreators';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -62,11 +65,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+function Navbar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [openLogin, setOpenLogin] = React.useState(false);
   const [openSignup, setOpenSignup] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  const { user, logout } = props;
+
+  React.useEffect(() => {
+    user.user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  }, [user, setIsLoggedIn]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -86,6 +96,17 @@ export default function Navbar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleOpenLogin = () => {
+    setOpenLogin(true);
+    handleMenuClose();
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    handleMenuClose();
+    setIsLoggedIn(false);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -146,12 +167,21 @@ export default function Navbar() {
         <ListItemText>Help Center</ListItemText>{' '}
       </MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>
-        <ListItemIcon>
-          <ExitToAppOutlinedIcon fontSize='small' />
-        </ListItemIcon>
-        <ListItemText>Log In / Sign Up</ListItemText>{' '}
-      </MenuItem>
+      {isLoggedIn ? (
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <ExitToAppOutlinedIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Log Out</ListItemText>
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleOpenLogin}>
+          <ListItemIcon>
+            <ExitToAppOutlinedIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Log In / Sign Up</ListItemText>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -213,15 +243,23 @@ export default function Navbar() {
         <ListItemText>Help Center</ListItemText>{' '}
       </MenuItem>
       <Divider />
-      <MenuItem onClick={handleMenuClose}>
-        <ListItemIcon>
-          <ExitToAppOutlinedIcon fontSize='small' />
-        </ListItemIcon>
-        <ListItemText>Log In / Sign Up</ListItemText>{' '}
-      </MenuItem>
+      {isLoggedIn ? (
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <ExitToAppOutlinedIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Log Out</ListItemText>
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleOpenLogin}>
+          <ListItemIcon>
+            <ExitToAppOutlinedIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Log In / Sign Up</ListItemText>
+        </MenuItem>
+      )}
     </Menu>
   );
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -245,16 +283,20 @@ export default function Navbar() {
             />
           </Search>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Login
-              openLogin={openLogin}
-              setOpenLogin={setOpenLogin}
-              setOpenSignup={setOpenSignup}
-            />
-            <SignUp
-              setOpenLogin={setOpenLogin}
-              openSignup={openSignup}
-              setOpenSignup={setOpenSignup}
-            />
+            <div style={{ display: isLoggedIn ? 'none' : 'block' }}>
+              <Login
+                openLogin={openLogin}
+                setOpenLogin={setOpenLogin}
+                setOpenSignup={setOpenSignup}
+              />
+            </div>
+            <div style={{ display: isLoggedIn ? 'none' : 'block' }}>
+              <SignUp
+                setOpenLogin={setOpenLogin}
+                openSignup={openSignup}
+                setOpenSignup={setOpenSignup}
+              />
+            </div>
             <IconButton
               size='large'
               edge='end'
@@ -286,3 +328,18 @@ export default function Navbar() {
     </Box>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: (credentials) => {
+      dispatch(logout(credentials));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

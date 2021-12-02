@@ -44,7 +44,7 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
-export const logout = (id) => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   try {
     await axios.delete('/auth/logout');
     await localStorage.removeItem('reddit-clone-trp-token');
