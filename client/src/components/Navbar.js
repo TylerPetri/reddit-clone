@@ -22,8 +22,8 @@ import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
-import Login from './Login';
-import SignUp from './SignUp';
+import Login from './Login_Signup/Login';
+import SignUp from './Login_Signup/SignUp';
 import { Divider } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [openLogin, setOpenLogin] = React.useState(false);

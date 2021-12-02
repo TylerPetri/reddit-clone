@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +12,8 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
+
+import { login } from '../../store/utils/thunkCreators';
 
 const loginStyle = {
   display: { xs: 'none', md: 'block' },
@@ -87,7 +91,13 @@ const LoginButton = styled(Button)({
   background: '#007BD7',
 });
 
-export default function Login(props) {
+function Login(props) {
+  const { user, login, openLogin, setOpenLogin, setOpenSignup } = props;
+
+  React.useEffect(() => {
+    setOpenLogin(false);
+  }, [user, setOpenLogin]);
+
   const handleOpen = () => setOpenLogin(true);
   const handleClose = () => setOpenLogin(false);
   const handleRedirect = () => {
@@ -95,7 +105,13 @@ export default function Login(props) {
     setOpenLogin(false);
   };
 
-  const { openLogin, setOpenLogin, setOpenSignup } = props;
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+
+    await login({ username, password });
+  };
 
   return (
     <div>
@@ -152,6 +168,7 @@ export default function Login(props) {
                 gap: 1,
                 '& .MuiTextField-root': { p: 0 },
               }}
+              onSubmit={handleLogin}
               noValidate
               autoComplete='off'
             >
@@ -159,16 +176,21 @@ export default function Login(props) {
                 fullWidth
                 id='outlined-username'
                 label='Username'
+                name='username'
+                type='text'
                 variant='outlined'
               />
               <TextField
                 id='outlined-password-input'
                 label='Password'
                 type='password'
+                name='password'
                 autoComplete='current-password'
                 fullWidth
               />
-              <LoginButton fullWidth>Log In</LoginButton>
+              <LoginButton fullWidth type='submit'>
+                Log In
+              </LoginButton>
               <Typography variant='caption' color='text.secondary'>
                 Forgot your username of password?
               </Typography>
@@ -182,3 +204,18 @@ export default function Login(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (credentials) => {
+      dispatch(login(credentials));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
