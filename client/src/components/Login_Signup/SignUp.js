@@ -29,6 +29,7 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   height: '70%',
+  minHeight: '650px',
   width: '85%',
   maxWidth: '800px',
   bgcolor: 'background.paper',
@@ -137,6 +138,7 @@ function Signup(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('handleSubmit');
     const username = event.target.username.value;
     const password = event.target.password.value;
 
