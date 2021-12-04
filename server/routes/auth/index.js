@@ -23,6 +23,37 @@ router.get('/users', (req, res) => {
   });
 });
 
+router.post('/email', (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: 'Email required' });
+    }
+
+    dynamodb.scan(
+      {
+        TableName: TABLE_NAME,
+        FilterExpression: 'email = :email',
+        ExpressionAttributeValues: { ':email': email },
+      },
+      (err, data) => {
+        if (err) {
+          console.error('Unable to scan. Error:', JSON.stringify(err, null, 2));
+          res.status(500).json(err);
+        } else if (data.Count > 0) {
+          res.status(401).json({ error: 'Email already exists' });
+        } else {
+          res.json({
+            email,
+          });
+        }
+      }
+    );
+  } catch (error) {
+    return res.status(401).json({ error: 'Something went wrong' });
+  }
+});
+
 router.post('/register', async (req, res, next) => {
   try {
     // expects {username, email, password} in req.body
@@ -160,7 +191,7 @@ router.post('/login', async (req, res, next) => {
       }
     );
   } catch (error) {
-    next(error);
+    return res.status(401).json({ error: 'Something went wrong' });
   }
 });
 

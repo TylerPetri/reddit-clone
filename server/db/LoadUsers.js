@@ -16,6 +16,7 @@ allUsers.forEach((user) => {
       createdAt: user.createdAt,
       username: user.username,
       password: user.password,
+      email: user.email,
     },
   };
   dynamodb.put(params, (err, data) => {

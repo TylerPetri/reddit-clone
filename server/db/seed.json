@@ -2,16 +2,19 @@
   {
     "username": "Epitascoliartheri",
     "password": "123456",
-    "createdAt": 6546546198
+    "createdAt": 6546546198,
+    "email": "mmmmmmilk@basketball.threes"
   },
   {
     "username": "Steph Curry",
     "password": "123456",
-    "createdAt": 453785353
+    "createdAt": 453785353,
+    "email": "mmmmmmilk@basketball.threes"
   },
   {
     "username": "Joyce Meyer",
     "password": "123456",
-    "createdAt": 4523727853
+    "createdAt": 4523727853,
+    "email": "JM@basketball.threes"
   }
 ]
