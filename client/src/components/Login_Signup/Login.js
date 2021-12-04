@@ -97,7 +97,7 @@ function Login(props) {
 
   React.useEffect(() => {
     setOpenLogin(false);
-  }, [user, setOpenLogin]);
+  }, [user.user, setOpenLogin]);
 
   const handleOpen = () => setOpenLogin(true);
   const handleClose = () => setOpenLogin(false);

@@ -260,6 +260,7 @@ function Navbar(props) {
       )}
     </Menu>
   );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>

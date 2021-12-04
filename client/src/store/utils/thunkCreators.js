@@ -23,7 +23,6 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 export const register = (credentials) => async (dispatch) => {
-  console.log('register thunk');
   try {
     const { data } = await axios.post('/auth/register', credentials);
     await localStorage.setItem('reddit-clone-trp-token', data.token);

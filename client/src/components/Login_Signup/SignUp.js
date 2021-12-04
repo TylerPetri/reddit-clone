@@ -117,7 +117,7 @@ function Signup(props) {
 
   React.useEffect(() => {
     setOpenSignup(false);
-  }, [user, setOpenSignup]);
+  }, [user.user, setOpenSignup]);
 
   const handleOpen = () => setOpenSignup(true);
   const handleClose = () => setOpenSignup(false);
@@ -138,7 +138,6 @@ function Signup(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('handleSubmit');
     const username = event.target.username.value;
     const password = event.target.password.value;
 

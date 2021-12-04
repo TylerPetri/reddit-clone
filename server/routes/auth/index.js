@@ -23,7 +23,6 @@ router.get('/users', (req, res) => {
 });
 
 router.post('/register', async (req, res, next) => {
-  console.log('starting');
   try {
     // expects {username, email, password} in req.body
     const { username, password, email } = req.body;
