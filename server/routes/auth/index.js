@@ -2,6 +2,7 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 const AWS = require('aws-sdk');
+const { AppConfigData } = require('aws-sdk');
 const awsConfig = {
   region: 'us-east-2',
 };
@@ -11,7 +12,7 @@ const TABLE_NAME = 'Reddit-Clone-Users';
 
 router.get('/users', (req, res) => {
   const params = {
-    TableName: table,
+    TableName: TABLE_NAME,
   };
   dynamodb.scan(params, (err, data) => {
     if (err) {
@@ -49,22 +50,52 @@ router.post('/register', async (req, res, next) => {
         password: password,
       },
     };
-    dynamodb.put(params, (err, data) => {
-      if (err) {
-        console.error(
-          'Unable to add item. Error JSON:',
-          JSON.stringify(err, null, 2)
-        );
-        res.status(500).json(err);
-      } else {
-        console.log('Added item:', username);
-        const token = jwt.sign({ id: data._id }, process.env.SESSION_SECRET, {
-          expiresIn: 86400,
-        });
-        const user = { username: username };
-        res.json({ user, token });
+
+    dynamodb.query(
+      {
+        TableName: TABLE_NAME,
+        ProjectionExpression: '#un',
+        KeyConditionExpression: '#un = :user',
+        ExpressionAttributeNames: {
+          '#un': 'username',
+        },
+        ExpressionAttributeValues: {
+          ':user': username,
+        },
+      },
+      (err, data) => {
+        if (err) {
+          console.error(
+            'Unable to query. Error:',
+            JSON.stringify(err, null, 2)
+          );
+          res.status(500).json(err);
+        } else if (data.Count > 0) {
+          res.status(401).json({ error: 'User already exists' });
+        } else {
+          dynamodb.put(params, (err, data) => {
+            if (err) {
+              console.error(
+                'Unable to add item. Error JSON:',
+                JSON.stringify(err, null, 2)
+              );
+              res.status(500).json(err);
+            } else {
+              console.log('Added item:', username);
+              const token = jwt.sign(
+                { id: data._id },
+                process.env.SESSION_SECRET,
+                {
+                  expiresIn: 86400,
+                }
+              );
+              const user = { username: username };
+              res.json({ user, token });
+            }
+          });
+        }
       }
-    });
+    );
   } catch (error) {
     return res.status(401).json({ error: 'Something went wrong' });
   }

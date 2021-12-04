@@ -103,7 +103,7 @@ const suggestionStyle = {
 function Signup(props) {
   const [enteredEmail, setEnteredEmail] = React.useState(false);
   const [email, setEmail] = React.useState();
-  const [username, setUsername] = React.useState();
+  const [usernameState, setUsernameState] = React.useState('');
 
   const suggestions = [
     'NefariousnessOk7743',
@@ -132,13 +132,13 @@ function Signup(props) {
     setEnteredEmail(true);
   };
 
-  const handleSuggestion = (suggestion) => setUsername(suggestion);
-  const handleChange = (event) => setUsername(event.target.value);
+  const handleSuggestion = (suggestion) => setUsernameState(suggestion);
+  const handleChange = (event) => setUsernameState(event.target.value);
   const handleBack = () => setEnteredEmail(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const username = event.target.username.value;
+    const username = usernameState;
     const password = event.target.password.value;
 
     await register({ username, email, password });
@@ -303,7 +303,7 @@ function Signup(props) {
                         name='username'
                         type='text'
                         variant='outlined'
-                        value={username}
+                        value={usernameState}
                         onChange={handleChange}
                         sx={{ maxWidth: '350px' }}
                       />
