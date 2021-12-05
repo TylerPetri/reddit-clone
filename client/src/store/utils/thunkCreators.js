@@ -44,6 +44,16 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
+export const emailCheck = (credentials) => async (dispatch) => {
+  try {
+    const { data } = await axios.post('/auth/email', credentials);
+    dispatch(gotUser(data));
+  } catch (error) {
+    console.error(error);
+    dispatch(gotUser({ error: error.response.data.error || 'Server Error' }));
+  }
+};
+
 export const logout = () => async (dispatch) => {
   try {
     await axios.delete('/auth/logout');

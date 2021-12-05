@@ -14,8 +14,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReplayIcon from '@mui/icons-material/Replay';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import { register } from '../../store/utils/thunkCreators';
+import { register, emailCheck } from '../../store/utils/thunkCreators';
 
 const buttonStyle = {
   backgroundColor: '#0061A9',
@@ -104,6 +105,8 @@ function Signup(props) {
   const [enteredEmail, setEnteredEmail] = React.useState(false);
   const [email, setEmail] = React.useState();
   const [usernameState, setUsernameState] = React.useState('');
+  const [fetchingEmail, setFetchingEmail] = React.useState(false);
+  const [fetchingSignUp, setFetchingSignUp] = React.useState(false);
 
   const suggestions = [
     'NefariousnessOk7743',
@@ -113,11 +116,25 @@ function Signup(props) {
     'Thick_Sea8733',
   ];
 
-  const { user, openSignup, setOpenLogin, setOpenSignup, register } = props;
+  const {
+    user,
+    openSignup,
+    setOpenLogin,
+    setOpenSignup,
+    register,
+    emailCheck,
+  } = props;
 
   React.useEffect(() => {
     setOpenSignup(false);
   }, [user.user, setOpenSignup]);
+
+  React.useEffect(() => {
+    if (user.email) {
+      setEmail(user.email);
+      setEnteredEmail(true);
+    }
+  }, [user.email]);
 
   const handleOpen = () => setOpenSignup(true);
   const handleClose = () => setOpenSignup(false);
@@ -126,10 +143,13 @@ function Signup(props) {
     setOpenLogin(true);
   };
 
-  const handleEmail = (event) => {
+  const handleEmail = async (event) => {
     event.preventDefault();
-    setEmail(event.target.email.value);
-    setEnteredEmail(true);
+
+    const email = event.target.email.value;
+    setFetchingEmail(true);
+    await emailCheck({ email });
+    setFetchingEmail(false);
   };
 
   const handleSuggestion = (suggestion) => setUsernameState(suggestion);
@@ -141,7 +161,9 @@ function Signup(props) {
     const username = usernameState;
     const password = event.target.password.value;
 
+    setFetchingSignUp(true);
     await register({ username, email, password });
+    setFetchingSignUp(false);
   };
 
   return (
@@ -220,10 +242,28 @@ function Signup(props) {
                     name='email'
                     variant='outlined'
                   />
-                  <SignUpButton fullWidth sx={{ mt: 1 }} type='submit'>
-                    CONTINUE
-                  </SignUpButton>
-
+                  <Box sx={{ position: 'relative' }}>
+                    <SignUpButton
+                      fullWidth
+                      sx={{ mt: 1, opacity: fetchingEmail ? '0.1' : '1' }}
+                      type='submit'
+                      disabled={fetchingEmail}
+                    >
+                      CONTINUE
+                    </SignUpButton>
+                    {fetchingEmail && (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          marginTop: '-8px',
+                          marginLeft: '-12px',
+                        }}
+                      />
+                    )}
+                  </Box>
                   <Typography variant='caption' color='text.secondary' mt={1}>
                     Already a redditor?
                     <Button onClick={handleRedirect}>LOG IN</Button>
@@ -361,7 +401,27 @@ function Signup(props) {
                       >
                         Back
                       </Button>
-                      <SignUpButton type='submit'>Sign Up</SignUpButton>
+                      <Box sx={{ position: 'relative' }}>
+                        <SignUpButton
+                          sx={{ mt: 1, opacity: fetchingEmail ? '0.1' : '1' }}
+                          type='submit'
+                          disabled={fetchingSignUp}
+                        >
+                          Sign Up
+                        </SignUpButton>
+                        {fetchingSignUp && (
+                          <CircularProgress
+                            size={24}
+                            sx={{
+                              position: 'absolute',
+                              top: '50%',
+                              left: '50%',
+                              marginTop: '-8px',
+                              marginLeft: '-12px',
+                            }}
+                          />
+                        )}
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
@@ -384,6 +444,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     register: (credentials) => {
       dispatch(register(credentials));
+    },
+    emailCheck: (credentials) => {
+      dispatch(emailCheck(credentials));
     },
   };
 };

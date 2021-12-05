@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { login } from '../../store/utils/thunkCreators';
 
@@ -95,6 +96,8 @@ const LoginButton = styled(Button)({
 function Login(props) {
   const { user, login, openLogin, setOpenLogin, setOpenSignup } = props;
 
+  const [fetchingLogin, setFetchingLogin] = React.useState(false);
+
   React.useEffect(() => {
     setOpenLogin(false);
   }, [user.user, setOpenLogin]);
@@ -108,10 +111,13 @@ function Login(props) {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
     const username = event.target.username.value;
     const password = event.target.password.value;
 
+    setFetchingLogin(true);
     await login({ username, password });
+    setFetchingLogin(false);
   };
 
   return (
@@ -189,9 +195,28 @@ function Login(props) {
                 autoComplete='current-password'
                 fullWidth
               />
-              <LoginButton fullWidth type='submit'>
-                Log In
-              </LoginButton>
+              <Box sx={{ position: 'relative' }}>
+                <LoginButton
+                  fullWidth
+                  type='submit'
+                  disabled={fetchingLogin}
+                  sx={{ opacity: fetchingLogin ? '0.1' : '1' }}
+                >
+                  Log In
+                </LoginButton>
+                {fetchingLogin && (
+                  <CircularProgress
+                    size={24}
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      marginTop: '-12px',
+                      marginLeft: '-12px',
+                    }}
+                  />
+                )}
+              </Box>
               <Typography variant='caption' color='text.secondary'>
                 Forgot your username of password?
               </Typography>

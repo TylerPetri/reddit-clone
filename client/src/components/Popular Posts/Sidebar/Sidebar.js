@@ -112,7 +112,7 @@ export default function TopCommunities() {
             }}
           >
             {topTemplate.map((item, idx) => (
-              <>
+              <div key={idx}>
                 <ListItem key={idx} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>{idx + 1}</ListItemIcon>
@@ -126,7 +126,7 @@ export default function TopCommunities() {
                   </ListItemButton>
                 </ListItem>
                 <Divider />
-              </>
+              </div>
             ))}
           </List>
           <ViewAllButton>View All</ViewAllButton>

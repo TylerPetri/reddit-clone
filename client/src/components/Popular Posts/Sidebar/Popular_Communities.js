@@ -85,14 +85,14 @@ export default function PopularCommunities() {
         </SeeMore>
         <List>
           {popularList.map((item, idx) => (
-            <>
-              <Divider key={idx} />
+            <div key={idx}>
+              <Divider />
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemText primary={item} />
                 </ListItemButton>
               </ListItem>
-            </>
+            </div>
           ))}
         </List>
       </PopularCommunitiesBox>
