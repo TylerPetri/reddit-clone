@@ -133,10 +133,6 @@ function Login(props) {
     setFetchingLogin(false);
   };
 
-  function logs() {
-    console.log(props);
-  }
-
   return (
     <div>
       <Button onClick={handleOpen} sx={loginStyle}>
@@ -197,7 +193,6 @@ function Login(props) {
               autoComplete='off'
             >
               <Box sx={{ position: 'relative' }}>
-                <button onClick={logs}>logs</button>
                 <Typography
                   variant='caption'
                   color='error'
