@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 const AWS = require('aws-sdk');
 const { AppConfigData } = require('aws-sdk');
 const awsConfig = {
@@ -79,6 +80,16 @@ router.post('/register', async (req, res, next) => {
         password: password,
       },
     };
+
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      if (err) {
+        return res.status(500).json({
+          error: err,
+        });
+      } else {
+        params.Item.password = hashedPassword;
+      }
+    });
 
     dynamodb.query(
       {
@@ -164,25 +175,35 @@ router.post('/login', async (req, res, next) => {
           if (data.Items.length < 1) {
             console.log({ error: `No user found for username: ${username}` });
             res.status(401).json({ error: 'Wrong username and/or password' });
-          } else if (
-            data.Items.length > 0 &&
-            data.Items[0].password !== password
-          ) {
-            console.log({ error: 'Wrong username and/or password' });
-            res.status(401).json({ error: 'Wrong username and/or password' });
-          } else {
-            const token = jwt.sign(
-              { id: data.Items[0].id },
-              process.env.SESSION_SECRET,
-              {
-                expiresIn: 86400,
+          } else if (data.Items.length > 0) {
+            console.log(data.Items[0].password);
+            bcrypt.compare(password, data.Items[0].password, (err, result) => {
+              console.log(err, result);
+              if (err) {
+                console.log({ error: 'Something went wrong' });
+                res.status(401).json({ error: 'Something went wrong' });
               }
-            );
-            const user = data.Items[0];
-            delete user.password;
-            res.json({
-              user,
-              token,
+              if (!result) {
+                console.log({ error: 'Wrong username and/or password' });
+                res
+                  .status(401)
+                  .json({ error: 'Wrong username and/or password' });
+              }
+              if (result) {
+                const token = jwt.sign(
+                  { id: data.Items[0].id },
+                  process.env.SESSION_SECRET,
+                  {
+                    expiresIn: 86400,
+                  }
+                );
+                const user = data.Items[0];
+                delete user.password;
+                res.json({
+                  user,
+                  token,
+                });
+              }
             });
           }
         }
