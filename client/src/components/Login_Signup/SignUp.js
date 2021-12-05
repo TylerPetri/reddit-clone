@@ -107,6 +107,7 @@ function Signup(props) {
   const [usernameState, setUsernameState] = React.useState('');
   const [fetchingEmail, setFetchingEmail] = React.useState(false);
   const [fetchingSignUp, setFetchingSignUp] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   const suggestions = [
     'NefariousnessOk7743',
@@ -126,8 +127,19 @@ function Signup(props) {
   } = props;
 
   React.useEffect(() => {
-    setOpenSignup(false);
-  }, [user.user, setOpenSignup]);
+    if (!user.error && user.token) setOpenSignup(false);
+    if (
+      user.error === 'Username and password required' ||
+      user.error === 'Password must be at least 6 characters' ||
+      user.error === 'User already exists' ||
+      user.error === 'Email required' ||
+      user.error === 'Email already exists'
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [user.user, user.error, user.token, setOpenSignup]);
 
   React.useEffect(() => {
     if (user.email) {
@@ -155,6 +167,10 @@ function Signup(props) {
   const handleSuggestion = (suggestion) => setUsernameState(suggestion);
   const handleChange = (event) => setUsernameState(event.target.value);
   const handleBack = () => setEnteredEmail(false);
+  const handleError = () => {
+    setError(false);
+    user.error = {};
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -234,13 +250,29 @@ function Signup(props) {
                   noValidate
                   autoComplete='off'
                 >
+                  <Box sx={{ position: 'relative' }}>
+                    <Typography
+                      variant='caption'
+                      color='error'
+                      sx={{
+                        display: error ? 'block' : 'none',
+                        position: 'absolute',
+                        top: '50%',
+                        marginTop: '-25px',
+                      }}
+                    >
+                      {user.error === 'Email required' && 'Email required'}
+                      {user.error === 'Email already exists' &&
+                        'Email already exists'}
+                    </Typography>
+                  </Box>
                   <TextField
-                    fullWidth
                     id='outlined-email'
                     label='Email'
                     type='email'
                     name='email'
                     variant='outlined'
+                    onClick={handleError}
                   />
                   <Box sx={{ position: 'relative' }}>
                     <SignUpButton
@@ -338,6 +370,7 @@ function Signup(props) {
                       }}
                     >
                       <TextField
+                        error={error ? true : false}
                         id='outlined-username'
                         label='CHOOSE A USERNAME'
                         name='username'
@@ -346,15 +379,36 @@ function Signup(props) {
                         value={usernameState}
                         onChange={handleChange}
                         sx={{ maxWidth: '350px' }}
+                        onClick={handleError}
                       />
                       <TextField
+                        error={error ? true : false}
                         id='outlined-password-input'
                         label='PASSWORD'
                         type='password'
                         name='password'
                         autoComplete='current-password'
                         sx={{ maxWidth: '350px' }}
+                        onClick={handleError}
                       />
+                      <Box sx={{ position: 'relative' }}>
+                        <Typography
+                          variant='caption'
+                          color='error'
+                          sx={{
+                            display: error ? 'block' : 'none',
+                            position: 'absolute',
+                          }}
+                        >
+                          {user.error === 'Username and password required' &&
+                            'Username and password required'}
+                          {user.error === 'User already exists' &&
+                            'User already exists'}
+                          {user.error ===
+                            'Password must be at least 6 characters' &&
+                            'Password must be at least 6 characters'}
+                        </Typography>
+                      </Box>
                     </Box>
                     <Box
                       sx={{

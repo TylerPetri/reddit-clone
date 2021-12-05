@@ -97,16 +97,29 @@ function Login(props) {
   const { user, login, openLogin, setOpenLogin, setOpenSignup } = props;
 
   const [fetchingLogin, setFetchingLogin] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
-    setOpenLogin(false);
-  }, [user.user, setOpenLogin]);
+    if (!user.error) setOpenLogin(false);
+    if (
+      user.error === 'Username and password required' ||
+      user.error === 'Wrong username and/or password'
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [user.user, user.error, setOpenLogin]);
 
   const handleOpen = () => setOpenLogin(true);
   const handleClose = () => setOpenLogin(false);
   const handleRedirect = () => {
     setOpenSignup(true);
     setOpenLogin(false);
+  };
+  const handleError = () => {
+    setError(false);
+    user.error = {};
   };
 
   const handleLogin = async (event) => {
@@ -179,21 +192,39 @@ function Login(props) {
               noValidate
               autoComplete='off'
             >
+              <Box sx={{ position: 'relative' }}>
+                <Typography
+                  variant='caption'
+                  color='error'
+                  sx={{
+                    display: error ? 'block' : 'none',
+                    position: 'absolute',
+                    top: '50%',
+                    marginTop: '-25px',
+                  }}
+                >
+                  Wrong username or password
+                </Typography>
+              </Box>
               <TextField
                 fullWidth
+                error={error ? true : false}
                 id='outlined-username'
                 label='Username'
                 name='username'
                 type='text'
                 variant='outlined'
+                onClick={handleError}
               />
               <TextField
+                error={error ? true : false}
                 id='outlined-password-input'
                 label='Password'
                 type='password'
                 name='password'
                 autoComplete='current-password'
                 fullWidth
+                onClick={handleError}
               />
               <Box sx={{ position: 'relative' }}>
                 <LoginButton

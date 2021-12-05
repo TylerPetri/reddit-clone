@@ -60,9 +60,7 @@ router.post('/register', async (req, res, next) => {
     const { username, password, email } = req.body;
 
     if (!username || !password || !email) {
-      return res
-        .status(400)
-        .json({ error: 'Username, password, and email required' });
+      return res.status(400).json({ error: 'Username and password required' });
     }
 
     if (password.length < 6) {
